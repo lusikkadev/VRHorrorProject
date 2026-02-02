@@ -8,6 +8,9 @@ namespace UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets
     /// </summary>
     public class ControllerAnimator : MonoBehaviour
     {
+        [Header("References")]
+        public Animator handAnimator;
+
         [Header("Thumbstick")]
         [SerializeField]
         Transform m_ThumbstickTransform;
@@ -31,6 +34,7 @@ namespace UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets
         [Header("Grip")]
         [SerializeField]
         Transform m_GripTransform;
+
 
         [SerializeField]
         Vector2 m_GripRightRange = new Vector2(-0.0125f, -0.011f);
@@ -76,6 +80,7 @@ namespace UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets
             if (m_GripInput != null)
             {
                 var gripVal = m_GripInput.ReadValue();
+                handAnimator.SetFloat("Blend", gripVal);
                 var currentPos = m_GripTransform.localPosition;
                 m_GripTransform.localPosition = new Vector3(Mathf.Lerp(m_GripRightRange.x, m_GripRightRange.y, gripVal), currentPos.y, currentPos.z);
             }
