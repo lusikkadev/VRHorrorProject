@@ -9940,6 +9940,25 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2a83511a782a6aa4dafed1f5a2bd3803, type: 3}
   m_PrefabInstance: {fileID: 636621458}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &638774192 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3717555692423153380, guid: c446644f241937b4aaf613cbe51029ab, type: 3}
+  m_PrefabInstance: {fileID: 928437196}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &638774199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 638774192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34830892177a58d48b8fedfba0bc26c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PhoneLight
+  isLightOn: 1
+  lightObject: {fileID: 928437197}
 --- !u!1001 &643201516
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -34066,21 +34085,49 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3284079654009737271, guid: c446644f241937b4aaf613cbe51029ab, type: 3}
+      propertyPath: m_Activated.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3284079654009737271, guid: c446644f241937b4aaf613cbe51029ab, type: 3}
+      propertyPath: m_Activated.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3284079654009737271, guid: c446644f241937b4aaf613cbe51029ab, type: 3}
+      propertyPath: m_Activated.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 638774199}
+    - target: {fileID: 3284079654009737271, guid: c446644f241937b4aaf613cbe51029ab, type: 3}
+      propertyPath: m_Activated.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3284079654009737271, guid: c446644f241937b4aaf613cbe51029ab, type: 3}
+      propertyPath: m_Activated.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ToggleLight
+      objectReference: {fileID: 0}
+    - target: {fileID: 3284079654009737271, guid: c446644f241937b4aaf613cbe51029ab, type: 3}
+      propertyPath: m_Activated.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PhoneLight, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3284079654009737271, guid: c446644f241937b4aaf613cbe51029ab, type: 3}
+      propertyPath: m_Activated.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 3717555692423153380, guid: c446644f241937b4aaf613cbe51029ab, type: 3}
       propertyPath: m_Name
       value: Phone
       objectReference: {fileID: 0}
     - target: {fileID: 6698944593909989802, guid: c446644f241937b4aaf613cbe51029ab, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.783
+      value: 0.848
       objectReference: {fileID: 0}
     - target: {fileID: 6698944593909989802, guid: c446644f241937b4aaf613cbe51029ab, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.718
+      value: 0.656
       objectReference: {fileID: 0}
     - target: {fileID: 6698944593909989802, guid: c446644f241937b4aaf613cbe51029ab, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -7.241
+      value: -7.076
       objectReference: {fileID: 0}
     - target: {fileID: 6698944593909989802, guid: c446644f241937b4aaf613cbe51029ab, type: 3}
       propertyPath: m_LocalRotation.w
@@ -34113,8 +34160,16 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3717555692423153380, guid: c446644f241937b4aaf613cbe51029ab, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 638774199}
   m_SourcePrefab: {fileID: 100100000, guid: c446644f241937b4aaf613cbe51029ab, type: 3}
+--- !u!1 &928437197 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3343097182852424688, guid: c446644f241937b4aaf613cbe51029ab, type: 3}
+  m_PrefabInstance: {fileID: 928437196}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &936077406
 Mesh:
   m_ObjectHideFlags: 0
