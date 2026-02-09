@@ -54,38 +54,38 @@ public class EventManager : MonoBehaviour
 
     IEnumerator RunGameScript()
     {
-        while (!progressGates.Contains("StartSequenceDone"))
-        {
-            AudioManager.instance.StartWindAndThunder();
-            cameraFade.StartCoroutine(cameraFade.StartGameFadeCoroutine());
-            AudioManager.instance.PlayPhoneRing();
-            // Wake up audio etc.
-            debugText.text = "Start sequence done";
-            yield return new WaitForSeconds(3f);
-            progressGates.Add("StartSequenceDone");
-            yield return null;
-        }
+        AudioManager.instance.StartWindAndThunder();
+        AudioManager.instance.PlayPhoneRing();
+        cameraFade.StartCoroutine(cameraFade.StartGameFadeCoroutine());
+        // Wake up audio etc.
+        debugText.text = "Start sequence done";
+        yield return new WaitForSeconds(3f);
+
         while (!progressGates.Contains("PickedUpPhoneDone"))
         {
             debugText.text = "Waiting for phone pickup";
             yield return null;
         }
+
+        debugText.text = "Picked Up Phone";
+        AudioManager.instance.StopPhoneRing();
+        yield return new WaitForSeconds(5f);
+        AudioManager.instance.PlayWomanScream();
+        yield return new WaitForSeconds(2f);
+        // Start window sequence
+
         while (!progressGates.Contains("WindowSequenceDone"))
         {
-            debugText.text = "Picked Up Phone";
-            AudioManager.instance.StopPhoneRing();
-            yield return new WaitForSeconds(5f);
-            AudioManager.instance.PlayWomanScream();
-            // thunder, neighbor building scream, animation.
-            progressGates.Add("WindowSequenceDone");
+            Debug.Log("Waiting for window sequence to be done");
             yield return null;
         }
+
+        // freeroam whatever
+
         while (!progressGates.Contains("FreeroamSequenceDone"))
         {
-            //scareDisplay.StartCoroutine(scareDisplay.ScareCoroutine());
-            //yield return new WaitForSeconds(30f);
-            Debug.Log("Waiting for freeroam sequence");
             yield return null;
         }
+
     }
 }
