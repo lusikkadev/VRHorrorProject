@@ -2137,7 +2137,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
   m_InteractionLayers:
-    m_Bits: 1
+    m_Bits: 4294967295
   m_Handedness: 1
   m_AttachTransform: {fileID: 1986090135770280683}
   m_KeepSelectedTargetValid: 1
@@ -2512,7 +2512,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7310292341029101255
 Transform:
   m_ObjectHideFlags: 0
@@ -3385,7 +3385,7 @@ GameObject:
   - component: {fileID: 2161162522091596342}
   m_Layer: 2
   m_Name: PlayerRig
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4356,7 +4356,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
   m_InteractionLayers:
-    m_Bits: 1
+    m_Bits: 4294967295
   m_Handedness: 2
   m_AttachTransform: {fileID: 1311562009691725238}
   m_KeepSelectedTargetValid: 1
@@ -5758,6 +5758,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraFade
   headBoxMaterial: {fileID: 0}
   fadeDuration: 1
+  startFadeDuration: 10
 --- !u!54 &1946253818703849336
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6847,11 +6848,11 @@ GameObject:
   - component: {fileID: 4242667934690586409}
   m_Layer: 0
   m_Name: Gaze Interactor
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1497493947970382076
 Transform:
   m_ObjectHideFlags: 0
@@ -6881,7 +6882,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
   m_InteractionLayers:
-    m_Bits: 1
+    m_Bits: 4294967295
   m_Handedness: 0
   m_AttachTransform: {fileID: 3116270838292725957}
   m_KeepSelectedTargetValid: 1
@@ -7022,14 +7023,14 @@ MonoBehaviour:
   m_RaycastMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_RaycastTriggerInteraction: 1
+  m_RaycastTriggerInteraction: 2
   m_RaycastSnapVolumeInteraction: 0
   m_HitClosestOnly: 0
   m_HoverToSelect: 1
   m_HoverTimeToSelect: 1
   m_AutoDeselect: 1
   m_TimeToAutoDeselect: 0.25
-  m_EnableUIInteraction: 1
+  m_EnableUIInteraction: 0
   m_BlockInteractionsWithScreenSpaceUI: 0
   m_BlockUIOnInteractableSelection: 1
   m_ManipulateAttachTransform: 0

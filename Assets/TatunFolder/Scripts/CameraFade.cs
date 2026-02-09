@@ -5,10 +5,16 @@ public class CameraFade : MonoBehaviour
 {
     [SerializeField] Material headBoxMaterial;
     [SerializeField] float fadeDuration = 0.3f;
+    [SerializeField] float startFadeDuration = 10f;
 
     private void Awake()
     {
         headBoxMaterial = GetComponent<Renderer>().material;
+    }
+
+    private void Start()
+    {
+        //StartCoroutine(StartGameFadeCoroutine());
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -56,6 +62,22 @@ public class CameraFade : MonoBehaviour
         Color targetColor = new Color(initialColor.r, initialColor.g, initialColor.b, 0f);
         float elapsedTime = 0f;
         while (elapsedTime < fadeDuration)
+        {
+            headBoxMaterial.color = Color.Lerp(initialColor, targetColor, elapsedTime / fadeDuration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+    }
+
+
+    public IEnumerator StartGameFadeCoroutine()
+    {
+        // fade in from black to view
+        Color initialColor = headBoxMaterial.color;
+        Color targetColor = new Color(initialColor.r, initialColor.g, initialColor.b, 0f);
+        float elapsedTime = 0f;
+        yield return new WaitForSeconds(5f);
+        while (elapsedTime < startFadeDuration)
         {
             headBoxMaterial.color = Color.Lerp(initialColor, targetColor, elapsedTime / fadeDuration);
             elapsedTime += Time.deltaTime;
