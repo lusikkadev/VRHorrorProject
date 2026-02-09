@@ -12,7 +12,7 @@ public class ScareDisplay : MonoBehaviour
     private void Start()
     {
         GetComponent<Image>().sprite = originalSprite;
-        StartCoroutine(ScareCoroutine());
+        //StartCoroutine(ScareCoroutine());
     }
 
     public void Scare()
@@ -26,7 +26,7 @@ public class ScareDisplay : MonoBehaviour
         GetComponent<Image>().sprite = originalSprite;
     }
 
-    private IEnumerator ScareCoroutine()
+    public IEnumerator ScareCoroutine()
     {
         while (true)
         {
