@@ -15,17 +15,27 @@ public class EventManager : MonoBehaviour
     [Header("Booleans")]
     bool phonePickedUp = false;
 
-    // Gates: StartSequence, PickedUpPhone, FreeRoamSequence, RoadSequence, FreeRoamSequence,
+    // Gates: StartSequence, PickedUpPhone, FreeRoamSequence, RoadSequence, FreeRoamSequence, etc.
 
     private void Awake()
     {
         cameraFade = FindAnyObjectByType<CameraFade>();
         scareDisplay = FindAnyObjectByType<ScareDisplay>();
+
+        //progressGates.Add("StartSequenceDone");
+        //progressGates.Add("PickedUpPhoneDone");
+        //progressGates.Add("WindowSequenceDone");
+        //progressGates.Add("FreeroamSequenceDone");
     }
-    //public void SetGateDone(string gateName)
-    //{
-    //    progressGates.Add(gateName);
-    //}
+
+    public void SetSequenceDone(string sequenceName)
+    {
+        if (progressGates.Contains(sequenceName + "Done"))
+        {
+            return;
+        }
+        progressGates.Add(sequenceName + "Done");
+    }
 
     public void PhoneFirstPickUp()
     {
@@ -72,7 +82,8 @@ public class EventManager : MonoBehaviour
         }
         while (!progressGates.Contains("FreeroamSequenceDone"))
         {
-            scareDisplay.Scare();
+            //scareDisplay.StartCoroutine(scareDisplay.ScareCoroutine());
+            //yield return new WaitForSeconds(30f);
             Debug.Log("Waiting for freeroam sequence");
             yield return null;
         }

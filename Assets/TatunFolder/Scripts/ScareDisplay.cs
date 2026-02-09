@@ -8,22 +8,12 @@ public class ScareDisplay : MonoBehaviour
     [SerializeField] Sprite[] scareSprites;
     [SerializeField] float scareDuration = 0.5f;
     [SerializeField] float scareInterval = 10f;
+    [SerializeField] bool scareDisplayOn = false;
     [SerializeField] Material originalMat;
     private void Start()
     {
         GetComponent<Image>().sprite = originalSprite;
         //StartCoroutine(ScareCoroutine());
-    }
-
-    public void Scare()
-    {
-        StartCoroutine(ScareCoroutine());
-    }
-
-    public void StopScare()
-    {
-        StopAllCoroutines();
-        GetComponent<Image>().sprite = originalSprite;
     }
 
     public IEnumerator ScareCoroutine()
