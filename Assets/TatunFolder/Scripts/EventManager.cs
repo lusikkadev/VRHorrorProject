@@ -15,6 +15,8 @@ public class EventManager : MonoBehaviour
     [Header("Booleans")]
     bool phonePickedUp = false;
 
+    float freeRoamTimer = 5f;
+
     // Gates: StartSequence, PickedUpPhone, FreeRoamSequence, RoadSequence, FreeRoamSequence, etc.
 
     private void Awake()
@@ -26,14 +28,17 @@ public class EventManager : MonoBehaviour
         //progressGates.Add("PickedUpPhoneDone");
         //progressGates.Add("WindowSequenceDone");
         //progressGates.Add("FreeroamSequenceDone");
+        //progressGates.Add("CreeperSeenOnRoad");
+        //progressGates.Add("RoadSequenceDone");
+        //progressGates.Add("PlayerLookedThrougDoorDone");
+        //progressGates.Add("BathroomSequenceDone");
+        //progressGates.Add("EnteredBedroomDone");
+        //progressGates.Add("PlayerChargingPhoneDone");
+        //progressGates.Add("EndSequenceDone");
     }
 
     public void SetSequenceDone(string sequenceName)
     {
-        if (progressGates.Contains(sequenceName + "Done"))
-        {
-            return;
-        }
         progressGates.Add(sequenceName + "Done");
     }
 
@@ -56,10 +61,9 @@ public class EventManager : MonoBehaviour
     {
         AudioManager.instance.StartWindAndThunder();
         AudioManager.instance.PlayPhoneRing();
-        cameraFade.StartCoroutine(cameraFade.StartGameFadeCoroutine());
         // Wake up audio etc.
         debugText.text = "Start sequence done";
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(5f);
 
         while (!progressGates.Contains("PickedUpPhoneDone"))
         {
@@ -72,20 +76,72 @@ public class EventManager : MonoBehaviour
         yield return new WaitForSeconds(5f);
         AudioManager.instance.PlayWomanScream();
         yield return new WaitForSeconds(2f);
-        // Start window sequence
+        // Start window sequence animation
 
         while (!progressGates.Contains("WindowSequenceDone"))
         {
-            Debug.Log("Waiting for window sequence to be done");
             yield return null;
         }
 
-        // freeroam whatever
+        // Wait for when the player checks the hole in the wall
 
         while (!progressGates.Contains("FreeroamSequenceDone"))
         {
             yield return null;
         }
 
+        // Instantiate creeper on road, wait for player to see it.
+
+        while (!progressGates.Contains("CreeperSeenOnRoad"))
+        {
+            yield return null;
+        }
+
+        // Creeper on road sequence
+
+        while (!progressGates.Contains("RoadSequenceDone"))
+        {
+            yield return null;
+        }
+
+        // Freeroam for N minutes
+        scareDisplay.StartScareDisplay();
+
+        yield return new WaitForSeconds(freeRoamTimer * 60f);
+        // Instantiate creeper image at the door
+        // Knock on door or pimpom
+
+        while (!progressGates.Contains("PlayerLookedThrougDoorDone"))
+        {
+            yield return null;
+        }
+
+        // Door sequence
+        yield return new WaitForSeconds(5f);
+        // Water turns on in the bathroom, instantiate creeper in bathroom behind shower curtain.
+        // Wait for player to open curtain in bathroom
+        while (!progressGates.Contains("BathroomSequenceDone"))
+        {
+            yield return null;
+        }
+        // Phone rings/text message on phone
+        // Instantiate creeper in bedroom closet, wait for player to enter bedroom
+
+        while (!progressGates.Contains("EnteredBedroomDone"))
+        {
+            yield return null;
+        }
+
+        // Creeper closes the closet.
+        // Lightning and thunder, phone dies
+        
+        while (!progressGates.Contains("PlayerChargingPhoneDone"))
+        {
+            yield return null;
+        }
+
+        // End sequence, phone turns on, creeper scare
+
+        // Coroutine for endgame.
     }
 }

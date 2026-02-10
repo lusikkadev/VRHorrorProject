@@ -1,86 +1,80 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CameraFade : MonoBehaviour
 {
-    [SerializeField] Material headBoxMaterial;
-    [SerializeField] float fadeDuration = 0.3f;
-    [SerializeField] float startFadeDuration = 10f;
+    [SerializeField] Image headBox;
+    [SerializeField] Color startColor = new Color(0f, 0f, 0f, 1f);
+    //[SerializeField] float fadeDuration = 0.3f;
+    [SerializeField] float startFadeDelay = 10f;
 
-    private void Awake()
-    {
-        headBoxMaterial = GetComponent<Renderer>().material;
-    }
+    Coroutine fadeRoutine;
 
     private void Start()
     {
-        //StartCoroutine(StartGameFadeCoroutine());
+        headBox.color = startColor;
+        StartCoroutine(StartGameFadeCoroutine());
     }
+
     private void OnTriggerEnter(Collider other)
     {
-        int layer = LayerMask.NameToLayer("WallsAndObjects");
-        // if the collided one is on layer WallsAndObjects
-        if (other.gameObject.layer == layer)
+        if (other.CompareTag("WallsAndObjects"))
         {
-            StartCoroutine(FadeToBlackCoroutine());
-            //Color color = headBoxMaterial.color;
-            //headBoxMaterial.color = new Color(color.r, color.g, color.b, 1f);
+            if (fadeRoutine != null)
+            {
+                StopCoroutine(fadeRoutine);
+            }
+            fadeRoutine = StartCoroutine(FadeToBlackCoroutine());
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        int layer = LayerMask.NameToLayer("WallsAndObjects");
 
-        if (other.gameObject.layer == layer)
+        if (other.CompareTag("WallsAndObjects"))
         {
-            StopCoroutine(FadeToBlackCoroutine());
-            StartCoroutine(FadeToViewCoroutine());
-            //Color color = headBoxMaterial.color;
-            //headBoxMaterial.color = new Color(color.r, color.g, color.b, 0f);
+            if (fadeRoutine != null)
+            {
+                StopCoroutine(fadeRoutine);
+            }
+            fadeRoutine = StartCoroutine(FadeToViewCoroutine());
         }
 
     }
 
     private IEnumerator FadeToBlackCoroutine()
     {
-        // change the headbox material color alpha to 1 over fadeDuration seconds
-        Color initialColor = headBoxMaterial.color;
-        Color targetColor = new Color(initialColor.r, initialColor.g, initialColor.b, 1f);
-        float elapsedTime = 0f;
-        while (elapsedTime < fadeDuration)
+        float alpha = headBox.color.a;
+        Color startColor = headBox.color;
+        while (alpha < 1f)
         {
-            headBoxMaterial.color = Color.Lerp(initialColor, targetColor, elapsedTime / fadeDuration);
-            elapsedTime += Time.deltaTime;
+            headBox.color = new Color(startColor.r, startColor.g, startColor.b, alpha);
+            alpha += 0.8f * Time.deltaTime;
             yield return null;
         }
     }
 
     private IEnumerator FadeToViewCoroutine()
     {
-        Color initialColor = headBoxMaterial.color;
-        Color targetColor = new Color(initialColor.r, initialColor.g, initialColor.b, 0f);
-        float elapsedTime = 0f;
-        while (elapsedTime < fadeDuration)
+        float alpha = headBox.color.a;
+        Color startColor = headBox.color;
+        while (alpha > 0f)
         {
-            headBoxMaterial.color = Color.Lerp(initialColor, targetColor, elapsedTime / fadeDuration);
-            elapsedTime += Time.deltaTime;
+            headBox.color = new Color(startColor.r, startColor.g, startColor.b, alpha);
+            alpha -= 0.8f * Time.deltaTime;
             yield return null;
         }
     }
 
-
     public IEnumerator StartGameFadeCoroutine()
     {
-        // fade in from black to view
-        Color initialColor = headBoxMaterial.color;
-        Color targetColor = new Color(initialColor.r, initialColor.g, initialColor.b, 0f);
-        float elapsedTime = 0f;
-        yield return new WaitForSeconds(5f);
-        while (elapsedTime < startFadeDuration)
+        yield return new WaitForSeconds(startFadeDelay);
+        float alpha = 1f;
+        while (alpha > 0f)
         {
-            headBoxMaterial.color = Color.Lerp(initialColor, targetColor, elapsedTime / fadeDuration);
-            elapsedTime += Time.deltaTime;
+            headBox.color = new Color(startColor.r, startColor.g, startColor.b, alpha);
+            alpha -= 0.1f * Time.deltaTime;
             yield return null;
         }
     }
