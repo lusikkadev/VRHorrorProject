@@ -16,7 +16,12 @@ public class ScareDisplay : MonoBehaviour
         //StartCoroutine(ScareCoroutine());
     }
 
-    public IEnumerator ScareCoroutine()
+    public void StartScareDisplay()
+    {
+        StartCoroutine(ScareCoroutine());
+    }
+
+    private IEnumerator ScareCoroutine()
     {
         while (true)
         {
