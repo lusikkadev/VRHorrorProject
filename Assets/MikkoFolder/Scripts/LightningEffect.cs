@@ -3,16 +3,22 @@ using UnityEngine.InputSystem;
 public class LightningEffect : MonoBehaviour
 {
     Animator animator;
-    PlayerInput playerInput;
+    [SerializeField] GameObject LightsParent;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         animator = GetComponent<Animator>();
-        playerInput = GetComponent<PlayerInput>();
     }
 
     public void playLightningEffect() {
         animator.Play("Lightning");
+    }
+
+    public void TurnOffLights() {
+        LightsParent.SetActive(false);
+    }
+    public void TurnOnLights() {
+        LightsParent.SetActive(true);
     }
     // Update is called once per frame
     void Update()
@@ -20,6 +26,12 @@ public class LightningEffect : MonoBehaviour
 
         if (Keyboard.current.enterKey.wasPressedThisFrame) {
             playLightningEffect();
+        }
+        if (Keyboard.current.upArrowKey.wasPressedThisFrame) {
+            TurnOnLights();
+        }
+        if (Keyboard.current.downArrowKey.wasPressedThisFrame) {
+            TurnOffLights();
         }
     }
 }
