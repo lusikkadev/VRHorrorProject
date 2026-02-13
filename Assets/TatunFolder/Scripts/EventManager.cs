@@ -11,6 +11,8 @@ public class EventManager : MonoBehaviour
     [SerializeField] CameraFade cameraFade;
     [SerializeField] ScareDisplay scareDisplay;
     [SerializeField] TMPro.TextMeshProUGUI debugText;
+    [SerializeField] LightningEffect lightningEffect;
+    [SerializeField] GameObject creeperPrefab;
 
     [Header("Booleans")]
     bool phonePickedUp = false;
@@ -21,6 +23,7 @@ public class EventManager : MonoBehaviour
 
     private void Awake()
     {
+        lightningEffect = FindAnyObjectByType<LightningEffect>();
         cameraFade = FindAnyObjectByType<CameraFade>();
         scareDisplay = FindAnyObjectByType<ScareDisplay>();
 
@@ -71,18 +74,32 @@ public class EventManager : MonoBehaviour
             yield return null;
         }
 
+        
         debugText.text = "Picked Up Phone";
         AudioManager.instance.StopPhoneRing();
         yield return new WaitForSeconds(5f);
+        creeperPrefab.SetActive(true);
+        AudioManager.instance.PlayLightningSound();
+        lightningEffect.playLightningEffect();
+        yield return new WaitForSeconds(3f);
         AudioManager.instance.PlayWomanScream();
-        yield return new WaitForSeconds(2f);
         // Start window sequence animation
+        yield return new WaitForSeconds(10f);
+        AudioManager.instance.PlayLightningSound();
+        lightningEffect.playLightningEffect();
+        creeperPrefab.SetActive(false);
+        // Lights out
+        progressGates.Add("WindowSequenceDone");
+        
+
+
 
         while (!progressGates.Contains("WindowSequenceDone"))
         {
             yield return null;
         }
 
+        debugText.text = "Window sequence done";
         // Wait for when the player checks the hole in the wall
 
         while (!progressGates.Contains("FreeroamSequenceDone"))
@@ -90,6 +107,7 @@ public class EventManager : MonoBehaviour
             yield return null;
         }
 
+        debugText.text = "Freeroam sequence done";
         // Instantiate creeper on road, wait for player to see it.
 
         while (!progressGates.Contains("CreeperSeenOnRoad"))
