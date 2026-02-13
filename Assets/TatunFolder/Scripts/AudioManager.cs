@@ -9,7 +9,6 @@ public class AudioManager : MonoBehaviour
     [Header("Audio Sources")]
     [SerializeField] AudioSource ambientSource;
     [SerializeField] GameObject phone;
-    [SerializeField] GameObject neighborApartment;
     [SerializeField] GameObject creeper;
 
     [Header("Audio Clips")]
@@ -61,8 +60,14 @@ public class AudioManager : MonoBehaviour
 
     public void PlayWomanScream()
     {
-        AudioSource audioSource = neighborApartment.GetComponent<AudioSource>();
+        AudioSource audioSource = creeper.GetComponent<AudioSource>();
         audioSource.PlayOneShot(womanScream);
+    }
+
+    public void PlayLightningSound()
+    {
+        AudioSource audioSource = ambientSource;
+        audioSource.PlayOneShot(thunderSound);
     }
 
 }
