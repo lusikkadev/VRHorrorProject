@@ -10,6 +10,12 @@ public class PeepholeController : MonoBehaviour {
     }
 
     void Update() {
+        var eyePos = userCam.position; // TODO
+        var localEyePos= transform.InverseTransformPoint(eyePos);
+        var eyeOffset = (Vector2)localEyePos;
+        // normalize offset
+        // remap to super slight hole camera pan/tilt (& position shift?)
+
 
     }
 }
