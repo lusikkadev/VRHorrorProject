@@ -9,7 +9,10 @@ public class AudioManager : MonoBehaviour
     [Header("Audio Sources")]
     [SerializeField] AudioSource ambientSource;
     [SerializeField] GameObject phone;
+    [SerializeField] GameObject womanScreamSource;
     [SerializeField] GameObject creeper;
+    [SerializeField] GameObject door;
+    [SerializeField] GameObject shower;
 
     [Header("Audio Clips")]
     [SerializeField] AudioClip phoneRingClip;
@@ -17,6 +20,9 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioClip womanScream;
     [SerializeField] AudioClip thunderSound;
     [SerializeField] AudioClip creeperSound;
+    [SerializeField] AudioClip doorBellSound;
+    [SerializeField] AudioClip showerSound;
+    [SerializeField] AudioClip showerStopSound;
 
     private void Awake()
     {
@@ -60,7 +66,7 @@ public class AudioManager : MonoBehaviour
 
     public void PlayWomanScream()
     {
-        AudioSource audioSource = creeper.GetComponent<AudioSource>();
+        AudioSource audioSource = womanScreamSource.GetComponent<AudioSource>();
         audioSource.PlayOneShot(womanScream);
     }
 
@@ -68,6 +74,42 @@ public class AudioManager : MonoBehaviour
     {
         AudioSource audioSource = ambientSource;
         audioSource.PlayOneShot(thunderSound);
+    }
+
+    public void PlayCreeperSound()
+    {
+        AudioSource audioSource = creeper.GetComponent<AudioSource>();
+        // creeper breathing loop start
+        audioSource.clip = creeperSound;
+        audioSource.Play();
+        audioSource.loop = true;
+    }
+
+    public void StopCreeperSound()
+    {
+        AudioSource audioSource = creeper.GetComponent<AudioSource>();
+        audioSource.Stop();
+    }
+
+    public void PlayDoorBellSound()
+    {
+        AudioSource audioSource = door.GetComponent<AudioSource>();
+        audioSource.PlayOneShot(doorBellSound);
+    }
+
+    public void LoopShowerSound()
+    {
+        AudioSource audioSource = shower.GetComponent<AudioSource>();
+        audioSource.clip = showerSound;
+        audioSource.Play();
+        audioSource.loop = true;
+    }
+
+    public void StopShowerSound()
+    {
+        AudioSource audioSource = shower.GetComponent<AudioSource>();
+        audioSource.Stop();
+        audioSource.PlayOneShot(showerStopSound);
     }
 
 }

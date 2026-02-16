@@ -6849,7 +6849,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
   m_InteractionLayers:
-    m_Bits: 4294967295
+    m_Bits: 2
   m_Handedness: 0
   m_AttachTransform: {fileID: 3116270838292725957}
   m_KeepSelectedTargetValid: 1
@@ -6989,7 +6989,7 @@ MonoBehaviour:
   m_LiveConeCastDebugVisuals: 0
   m_RaycastMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 4294967295
   m_RaycastTriggerInteraction: 2
   m_RaycastSnapVolumeInteraction: 0
   m_HitClosestOnly: 0

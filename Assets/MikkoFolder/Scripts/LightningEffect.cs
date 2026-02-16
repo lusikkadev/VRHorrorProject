@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 public class LightningEffect : MonoBehaviour
@@ -23,6 +24,18 @@ public class LightningEffect : MonoBehaviour
     public void playLightningEffect() {
         animator.Play("Lightning");
         TriggerNoise();
+    }
+
+    public IEnumerator PlayLightningAfterBlackOut()
+    {
+        if (!LightsParent.activeSelf)
+        {
+            TurnOnLights();
+        }
+        animator.Play("Lightning");
+        TriggerNoise();
+        yield return new WaitForSeconds(3f);
+        TurnOffLights();
     }
 
     public void TurnOffLights() {
