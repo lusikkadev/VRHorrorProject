@@ -49,6 +49,7 @@ MonoBehaviour:
   debugText: {fileID: 0}
   lightningEffect: {fileID: 0}
   creeperPrefab: {fileID: 0}
+  creeperActions: {fileID: 0}
   creeperAnchor1: {fileID: 0}
   creeperAnchor2: {fileID: 0}
   creeperAnchor3: {fileID: 0}

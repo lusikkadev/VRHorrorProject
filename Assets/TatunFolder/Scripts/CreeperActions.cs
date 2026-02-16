@@ -6,9 +6,14 @@ public class CreeperActions : MonoBehaviour
     [SerializeField] float creeperSpeed = 10f;
     [SerializeField] bool isRunning = false;
 
+    [Header("Hat")]
+    [SerializeField] GameObject hat;
+    [SerializeField] Transform head;
+
     private void Awake()
     {
-        creeperAnim = GetComponent<Animator>();
+        if (creeperAnim == null)
+            creeperAnim = GetComponent<Animator>();
     }
 
     private void Update()
