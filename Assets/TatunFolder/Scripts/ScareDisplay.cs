@@ -10,10 +10,31 @@ public class ScareDisplay : MonoBehaviour
     [SerializeField] float scareInterval = 10f;
     [SerializeField] bool scareDisplayOn = false;
     [SerializeField] Material originalMat;
+    [SerializeField] TMPro.TextMeshProUGUI clockText;
+    [SerializeField] int hours = 01;
+    [SerializeField] int minutes = 23;
+
     private void Start()
     {
         GetComponent<Image>().sprite = originalSprite;
         //StartCoroutine(ScareCoroutine());
+    }
+
+    private void Update()
+    {
+        // Update minutes on phone display starting at 01:23 and increasing every minute
+        var timer = 0f;
+        if (timer < 60f)
+        {
+            timer += Time.deltaTime;
+            clockText.text = hours.ToString("D2") + ":" + minutes.ToString("D2");
+            if (timer >= 60f)
+            {
+                minutes++;
+                var elapsedTime = timer;
+                timer -= elapsedTime;
+            }
+        }
     }
 
     public void StartScareDisplay()

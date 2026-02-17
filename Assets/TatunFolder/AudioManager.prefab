@@ -60,6 +60,10 @@ MonoBehaviour:
   doorBellSound: {fileID: 8300000, guid: 6fafa526c9faf544da9a8674a7619bad, type: 3}
   showerSound: {fileID: 8300000, guid: e71510e4baa15e64db796f4bcb2daea1, type: 3}
   showerStopSound: {fileID: 8300000, guid: d9afff7e3a20c4d43ba2e690c1938b0e, type: 3}
+  maggotSound: {fileID: 8300000, guid: 1b932bb5f3ba7dc44b147de3db990733, type: 3}
+  creepySFX1: {fileID: 8300000, guid: 2f8b43e1a3ea0e741b79b8f73f49f9e9, type: 3}
+  creepySFX2: {fileID: 8300000, guid: b87fec008acbd5c4aaca2e313aae5bdd, type: 3}
+  creepySFX3: {fileID: 8300000, guid: 2610cbdfefbf8bb448866c51a85669b4, type: 3}
 --- !u!82 &4713547162878693508
 AudioSource:
   m_ObjectHideFlags: 0
