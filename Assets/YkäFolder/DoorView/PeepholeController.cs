@@ -15,14 +15,13 @@ public class PeepholeController : MonoBehaviour {
     [SerializeField] bool useDebugOffsetInput = false;
     [SerializeField][Range(-0.2f, 0.2f)] float debugOffsetInputX = 0f;
     [SerializeField][Range(-0.2f, 0.2f)] float debugOffsetInputY = 0f;
-    Transform cam;
+    [SerializeField] Transform peepholeCam;
     Material mat;
     Quaternion camInitialRot;
 
     void Start() {
-        cam = GetComponentInChildren<Camera>().transform;
         mat = GetComponent<Renderer>().material;
-        camInitialRot = cam.localRotation;
+        camInitialRot = peepholeCam.localRotation;
     }
 
     void Update() {
@@ -57,7 +56,7 @@ public class PeepholeController : MonoBehaviour {
         // remap to slight hole camera pan/tilt and/or shader effects
         if (useCamTilt) {
             var camTilts = -normalizedEyeOffset * camTiltMaxDegrees;
-            cam.localRotation = Quaternion.Euler(-camTilts.y,
+            peepholeCam.localRotation = Quaternion.Euler(-camTilts.y,
                                                  camTilts.x,
                                                  0) * camInitialRot;
         }

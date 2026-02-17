@@ -29356,7 +29356,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 97
+  field of view: 120
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -29364,7 +29364,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 8400000, guid: cd508a896c10e484f94ed9a2a1c8390e, type: 2}
+  m_TargetTexture: {fileID: 8400000, guid: 67337007e144bf64385a4938630ec4e5, type: 2}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
@@ -69478,6 +69478,7 @@ GameObject:
   - component: {fileID: 1443976984}
   - component: {fileID: 1443976983}
   - component: {fileID: 1443976982}
+  - component: {fileID: 1443976986}
   m_Layer: 0
   m_Name: PeepholePlane
   m_TagString: Untagged
@@ -69532,7 +69533,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9226a713c62b33740aa87e22250ff59d, type: 2}
+  - {fileID: 2100000, guid: 6056ad5bcd4a7b04fac91c15f612cedc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -69573,12 +69574,37 @@ Transform:
   m_GameObject: {fileID: 1443976981}
   serializedVersion: 2
   m_LocalRotation: {x: 0.0000020265577, y: -0.7071079, z: 0.7071057, w: 0.0000020861623}
-  m_LocalPosition: {x: 36.237152, y: 2.4533005, z: 2.0182037}
+  m_LocalPosition: {x: 36.2372, y: 2.4533005, z: 2.0053}
   m_LocalScale: {x: 0.0047476296, y: 0.00474763, z: 0.0047476306}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2026710274}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 90}
+--- !u!114 &1443976986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1443976981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38fa77f24e953e2429084b10c35908ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PeepholeController
+  userCam: {fileID: 0}
+  usingVR: 1
+  eyeOffsetWorldMax: 0.1
+  useCamTilt: 1
+  useSpherizeOffset: 0
+  useSpherizeCenter: 0
+  camTiltMaxDegrees: 10
+  spherizeOffsetMax: 0.3
+  spherizeCenterMax: 0.3
+  useDebugOffsetInput: 0
+  debugOffsetInputX: 0
+  debugOffsetInputY: 0
+  peepholeCam: {fileID: 1048469828}
 --- !u!1 &1455309849
 GameObject:
   m_ObjectHideFlags: 0
@@ -72049,7 +72075,7 @@ PrefabInstance:
       objectReference: {fileID: 1597754111}
     - target: {fileID: 5982990152934752883, guid: 42d8dda820328a9488e2476cd5578fcf, type: 3}
       propertyPath: m_VersionIndex
-      value: 2239
+      value: 2242
       objectReference: {fileID: 0}
     - target: {fileID: 6158788633801636259, guid: 42d8dda820328a9488e2476cd5578fcf, type: 3}
       propertyPath: m_Mesh
@@ -72065,7 +72091,7 @@ PrefabInstance:
       objectReference: {fileID: 1691357400}
     - target: {fileID: 7480332721415368269, guid: 42d8dda820328a9488e2476cd5578fcf, type: 3}
       propertyPath: m_VersionIndex
-      value: 2239
+      value: 2242
       objectReference: {fileID: 0}
     - target: {fileID: 7727255770841676295, guid: 42d8dda820328a9488e2476cd5578fcf, type: 3}
       propertyPath: m_LocalPosition.x
@@ -72113,7 +72139,7 @@ PrefabInstance:
       objectReference: {fileID: 279500004}
     - target: {fileID: 7828937943023187393, guid: 42d8dda820328a9488e2476cd5578fcf, type: 3}
       propertyPath: m_VersionIndex
-      value: 2239
+      value: 2242
       objectReference: {fileID: 0}
     - target: {fileID: 7840509674872242177, guid: 42d8dda820328a9488e2476cd5578fcf, type: 3}
       propertyPath: m_Mesh
@@ -72125,7 +72151,7 @@ PrefabInstance:
       objectReference: {fileID: 2131906500}
     - target: {fileID: 7870020536037200363, guid: 42d8dda820328a9488e2476cd5578fcf, type: 3}
       propertyPath: m_VersionIndex
-      value: 2239
+      value: 2242
       objectReference: {fileID: 0}
     - target: {fileID: 9186062987108253753, guid: 42d8dda820328a9488e2476cd5578fcf, type: 3}
       propertyPath: m_Name
