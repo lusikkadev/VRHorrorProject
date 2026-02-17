@@ -16616,7 +16616,7 @@ Transform:
   m_GameObject: {fileID: 550278581}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.127, y: 3.6057134, z: -36.6}
+  m_LocalPosition: {x: -1.127, y: 3.6057134, z: -41.73}
   m_LocalScale: {x: 0.53967005, y: 0.53967005, z: 0.53967005}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -29887,7 +29887,7 @@ GameObject:
   - component: {fileID: 1048469830}
   - component: {fileID: 1048469829}
   m_Layer: 0
-  m_Name: KeyholeCamera
+  m_Name: PeepholeCamera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -70524,7 +70524,7 @@ GameObject:
   - component: {fileID: 1443976983}
   - component: {fileID: 1443976982}
   m_Layer: 0
-  m_Name: Plane
+  m_Name: PeepholePlane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -70617,12 +70617,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1443976981}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.49999997, y: -0.50000006, z: 0.4999985, w: 0.50000155}
-  m_LocalPosition: {x: 5.5342, y: 1.6033, z: -9.5771}
-  m_LocalScale: {x: 0.0047476306, y: 0.0047476306, z: 0.0047476306}
+  m_LocalRotation: {x: 0.0000020265577, y: -0.7071079, z: 0.7071057, w: 0.0000020861623}
+  m_LocalPosition: {x: 36.237152, y: 2.4533005, z: 2.0182037}
+  m_LocalScale: {x: 0.0047476296, y: 0.00474763, z: 0.0047476306}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 2026710274}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 90}
 --- !u!1 &1455309849
 GameObject:
@@ -83216,7 +83216,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2026710274}
   m_Layer: 0
-  m_Name: KeyholeScene
+  m_Name: PeepholeScene
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -83280,6 +83280,7 @@ Transform:
   - {fileID: 229952481}
   - {fileID: 1883904935}
   - {fileID: 1048469828}
+  - {fileID: 1443976985}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2043590012
@@ -90638,6 +90639,7 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 6530998936820839419, guid: c08f8c1bb75cfa748a4246c751834f4c, type: 3}
     - {fileID: 4386868935449832385, guid: c08f8c1bb75cfa748a4246c751834f4c, type: 3}
+    - {fileID: 8863998524552660903, guid: c08f8c1bb75cfa748a4246c751834f4c, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 1542427684062483423, guid: c08f8c1bb75cfa748a4246c751834f4c, type: 3}
       insertIndex: 1
@@ -90670,4 +90672,3 @@ SceneRoots:
   - {fileID: 2132968009900639644}
   - {fileID: 1589513084}
   - {fileID: 634875753}
-  - {fileID: 1443976985}
