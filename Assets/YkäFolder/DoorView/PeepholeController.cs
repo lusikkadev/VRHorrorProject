@@ -1,9 +1,12 @@
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.XR;
 
 public class PeepholeController : MonoBehaviour {
     // TODO: in VR have to check for closer eye and use that position!
     [SerializeField] Transform userCam;
+    [SerializeField] Transform debugCubeL;
+    [SerializeField] Transform debugCubeR;
     [SerializeField] bool usingVR = false;
     [SerializeField] float eyeOffsetWorldMax = 0.1f;
     [SerializeField] bool useCamTilt = true;
@@ -16,6 +19,7 @@ public class PeepholeController : MonoBehaviour {
     [SerializeField][Range(-0.2f, 0.2f)] float debugOffsetInputX = 0f;
     [SerializeField][Range(-0.2f, 0.2f)] float debugOffsetInputY = 0f;
     [SerializeField] Transform peepholeCam;
+    [SerializeField] bool leftEyeCloser;
     Material mat;
     Quaternion camInitialRot;
 
@@ -34,9 +38,15 @@ public class PeepholeController : MonoBehaviour {
             Matrix4x4 m = userCam.GetComponent<Camera>().cameraToWorldMatrix;
             Vector3 leftEyeWorld = m.MultiplyPoint(leftEyeLocal);
             Vector3 rightEyeWorld = m.MultiplyPoint(rightEyeLocal);
+            if(debugCubeL != null && debugCubeR != null) {
+                debugCubeL.position = leftEyeWorld + userCam.forward * 0.3f;
+                debugCubeR.position = rightEyeWorld + userCam.forward * 0.3f;
+            }
             var localEyePosLeft = (Vector2)transform.InverseTransformPoint(leftEyeWorld);
             var localEyePosRight = (Vector2)transform.InverseTransformPoint(rightEyeWorld);
-            localEyePos = localEyePosLeft.magnitude < localEyePosRight.magnitude ?
+            bool leftEyeCloserToAxis = localEyePosLeft.magnitude < localEyePosRight.magnitude;
+            leftEyeCloser = leftEyeCloserToAxis;
+            localEyePos = leftEyeCloserToAxis ?
                           localEyePosLeft : localEyePosRight;
         } else { // normal non-VR camera
             var eyePos = userCam.position;
