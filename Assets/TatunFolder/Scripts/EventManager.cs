@@ -193,8 +193,8 @@ public class EventManager : MonoBehaviour
         AudioManager.instance.PlayLightningSound();
         yield return new WaitForSeconds(10f);
 
-        AudioManager.instance.PlayDoorBellSound();
         doorTriggerCollider.SetActive(true);
+        AudioManager.instance.PlayDoorBellSound();
         // Instantiate creeper image at the door
 
         while (!progressGates.Contains("PlayerLookedThroughDoorDone"))
@@ -205,7 +205,7 @@ public class EventManager : MonoBehaviour
         // Start the door eye sequence.
         yield return new WaitForSeconds(5f);
 
-        doorTriggerCollider.SetActive(false);
+        
         debugText.text = "Player looked through door";
         yield return new WaitForSeconds(5f);
 
@@ -218,7 +218,7 @@ public class EventManager : MonoBehaviour
         {
             yield return null;
         }
-
+        doorTriggerCollider.SetActive(false);
         AudioManager.instance.StopShowerSound();
         yield return new WaitForSeconds(2f);
         AudioManager.instance.LoopCreeperSound();
