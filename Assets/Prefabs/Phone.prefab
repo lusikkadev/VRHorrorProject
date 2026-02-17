@@ -184,6 +184,9 @@ MonoBehaviour:
   scareInterval: 10
   scareDisplayOn: 0
   originalMat: {fileID: 2100000, guid: af17dc5520a9f07428b5e414f2991094, type: 2}
+  clockText: {fileID: 7806231272795075533}
+  hours: 1
+  minutes: 23
 --- !u!114 &8230888242686153313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -879,7 +882,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0

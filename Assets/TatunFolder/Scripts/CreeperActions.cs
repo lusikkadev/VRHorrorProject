@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CreeperActions : MonoBehaviour
@@ -6,9 +8,6 @@ public class CreeperActions : MonoBehaviour
     [SerializeField] float creeperSpeed = 10f;
     [SerializeField] bool isRunning = false;
 
-    [Header("Hat")]
-    [SerializeField] GameObject hat;
-    [SerializeField] Transform head;
 
     private void Awake()
     {
@@ -24,9 +23,17 @@ public class CreeperActions : MonoBehaviour
        }
     }
 
-    public void StartRunning()
+    public IEnumerator RunningCoroutine()
     {
-        isRunning = true;
+        creeperAnim.SetTrigger("Stare");
+        yield return new WaitForSeconds(5f);
         creeperAnim.SetTrigger("Run");
+        isRunning = true;
+    }
+
+    public void StopRunning()
+        {
+            isRunning = false;
+            creeperAnim.SetTrigger("Idle");
     }
 }
