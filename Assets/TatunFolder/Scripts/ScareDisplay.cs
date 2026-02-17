@@ -8,7 +8,6 @@ public class ScareDisplay : MonoBehaviour
     [SerializeField] Sprite[] scareSprites;
     [SerializeField] float scareDuration = 0.5f;
     [SerializeField] float scareInterval = 10f;
-    [SerializeField] bool scareDisplayOn = false;
     [SerializeField] Material originalMat;
     [SerializeField] TMPro.TextMeshProUGUI clockText;
     [SerializeField] int hours = 01;
@@ -46,9 +45,11 @@ public class ScareDisplay : MonoBehaviour
     {
         while (true)
         {
+            scareInterval = Random.Range(5f, 15f);
             Sprite scareSprite = scareSprites[Random.Range(0, scareSprites.Length)];
             GetComponent<Image>().material = null;
             GetComponent<Image>().sprite = scareSprite;
+            AudioManager.instance.PlayCreepySFX(Random.Range(1, 3));
             yield return new WaitForSeconds(scareDuration);
             GetComponent<Image>().material = originalMat;
             GetComponent<Image>().sprite = originalSprite;

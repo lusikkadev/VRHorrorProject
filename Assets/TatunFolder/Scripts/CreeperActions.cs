@@ -5,6 +5,7 @@ using UnityEngine;
 public class CreeperActions : MonoBehaviour
 {
     [SerializeField] Animator creeperAnim;
+    [SerializeField] GameObject player;
     [SerializeField] float creeperSpeed = 10f;
     [SerializeField] bool isRunning = false;
 
@@ -17,10 +18,15 @@ public class CreeperActions : MonoBehaviour
 
     private void Update()
     {
-       if (isRunning)
-       {
-           transform.position += transform.forward * creeperSpeed * Time.deltaTime;
-       }
+        if (isRunning)
+        {
+            transform.position += transform.forward * creeperSpeed * Time.deltaTime;
+        }
+    }
+
+    public void StartTwitching()
+    {
+        creeperAnim.SetTrigger("Twitch");
     }
 
     public IEnumerator RunningCoroutine()
@@ -32,8 +38,20 @@ public class CreeperActions : MonoBehaviour
     }
 
     public void StopRunning()
-        {
-            isRunning = false;
-            creeperAnim.SetTrigger("Idle");
+    {
+        isRunning = false;
+        creeperAnim.SetTrigger("Idle");
+    }
+
+    public void RunTowardsPlayer()
+    {
+        creeperAnim.SetTrigger("Run");
+        creeperSpeed = 5f;
+        isRunning = true;
+    }
+
+    public void SetToIdle()
+    {
+        creeperAnim.SetTrigger("Idle");
     }
 }

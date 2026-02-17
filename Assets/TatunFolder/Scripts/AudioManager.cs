@@ -58,7 +58,7 @@ public class AudioManager : MonoBehaviour
 
     public void PlayCreepySFX(int index)
     {
-        AudioSource audioSource = ambientSource;
+        AudioSource audioSource = phone.GetComponent<AudioSource>();
         switch (index)
         {
             case 1:
@@ -66,9 +66,6 @@ public class AudioManager : MonoBehaviour
                 break;
             case 2:
                 audioSource.PlayOneShot(creepySFX2);
-                break;
-            case 3:
-                audioSource.PlayOneShot(creepySFX3);
                 break;
             default:
                 Debug.LogWarning("Invalid creepy SFX index: " + index);

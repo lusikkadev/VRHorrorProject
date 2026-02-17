@@ -78,4 +78,15 @@ public class CameraFade : MonoBehaviour
             yield return null;
         }
     }
+
+    public void EndGameToBlack()
+    {
+        StartCoroutine(EndGameFadeCoroutine());
+    }
+
+    private IEnumerator EndGameFadeCoroutine()
+    {
+        headBox.color = new Color(startColor.r, startColor.g, startColor.b, 1f);
+        yield return null;
+    }
 }

@@ -34,6 +34,7 @@ public class EventManager : MonoBehaviour
     [SerializeField] GameObject doorTriggerCollider;
     [SerializeField] GameObject bathroomTriggerCollider;
     [SerializeField] GameObject livingRoomTriggerCollider;
+    [SerializeField] GameObject endingTriggerCollider;
 
     [Header("Booleans")]
     bool phonePickedUp = false;
@@ -170,13 +171,17 @@ public class EventManager : MonoBehaviour
         debugText.text = "Creeper seen in living room";
 
         livingRoomTriggerCollider.SetActive(false);
+        yield return new WaitForSeconds(3f);
         creeperPrefab.transform.position = creeperAnchorNeighbour.position;
+        creeperPrefab.transform.rotation = creeperAnchorNeighbour.rotation;
+        creeperActions.StartTwitching();
         yield return new WaitForSeconds(10f);
 
         debugText.text = "Starting creeper sounds";
         AudioManager.instance.LoopCreeperSound();
-        yield return new WaitForSeconds(8f);
+        yield return new WaitForSeconds(10f);
 
+        
         debugText.text = "Starting maggot sounds";
         AudioManager.instance.StopCreeperSound();
         AudioManager.instance.LoopMaggotSound();
@@ -200,46 +205,60 @@ public class EventManager : MonoBehaviour
         // Start the door eye sequence.
         yield return new WaitForSeconds(5f);
 
-        lightningEffect.TurnOnLights();
         doorTriggerCollider.SetActive(false);
         debugText.text = "Player looked through door";
         yield return new WaitForSeconds(5f);
 
         bathroomTriggerCollider.SetActive(true);
-        AudioManager.instance.LoopShowerSound();
         creeperPrefab.transform.position = creeperAnchorShower.position;
-        creeperAnim.SetTrigger("Twitch");
-        // Water turns on in the bathroom, instantiate creeper in bathroom behind shower curtain.
-        // Wait for player to open curtain in bathroom
+        creeperPrefab.transform.rotation = creeperAnchorShower.rotation;
+        AudioManager.instance.LoopShowerSound();
+        creeperActions.StartTwitching();
         while (!progressGates.Contains("PlayerEnteredBathroomDone"))
         {
             yield return null;
         }
 
         AudioManager.instance.StopShowerSound();
+        yield return new WaitForSeconds(2f);
         AudioManager.instance.LoopCreeperSound();
         yield return new WaitForSeconds(8f);
-
-        AudioManager.instance.PlayCreepySFX(1);
+        AudioManager.instance.StopCreeperSound();
+        creeperPrefab.SetActive(false);
+        yield return new WaitForSeconds(3f);
         progressGates.Add("BathroomSequenceDone");
 
         while (!progressGates.Contains("BathroomSequenceDone"))
         {
             yield return null;
         }
+        creeperPrefab.SetActive(true);
+        creeperPrefab.transform.position = creeperAnchorEnd.position;
+        creeperPrefab.transform.rotation = creeperAnchorEnd.rotation;
+        creeperActions.SetToIdle();
+        lightningEffect.TurnOnLights();
+        endingTriggerCollider.SetActive(true);
+        while (!progressGates.Contains("CreeperEndingSeenDone"))
+        {
+            yield return null;
+        }
+
+        endingTriggerCollider.SetActive(false);
+        yield return new WaitForSeconds(3f);
         lightningEffect.TurnOffLights();
+        AudioManager.instance.LoopCreeperSound();
+        yield return new WaitForSeconds(2f);
+        lightningEffect.PlayLightningAfterBlackOut();
+        AudioManager.instance.PlayLightningSound();
+        yield return new WaitForSeconds(4f);
+        creeperActions.RunTowardsPlayer();
+        yield return new WaitForSeconds(3f);
+        cameraFade.EndGameToBlack();
 
-        while (!progressGates.Contains("EnteredBedroomDone"))
+        while (!progressGates.Contains("PlayerCaughtDone"))
         {
             yield return null;
         }
-
-        
-        while (!progressGates.Contains("PlayerChargingPhoneDone"))
-        {
-            yield return null;
-        }
-
         // End sequence, phone turns on, creeper scare
 
         // Coroutine for endgame.
