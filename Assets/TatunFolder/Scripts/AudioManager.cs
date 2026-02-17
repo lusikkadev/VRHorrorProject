@@ -23,6 +23,10 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioClip doorBellSound;
     [SerializeField] AudioClip showerSound;
     [SerializeField] AudioClip showerStopSound;
+    [SerializeField] AudioClip maggotSound;
+    [SerializeField] AudioClip creepySFX1;
+    [SerializeField] AudioClip creepySFX2;
+    [SerializeField] AudioClip creepySFX3;
 
     private void Awake()
     {
@@ -35,6 +39,40 @@ public class AudioManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+        }
+    }
+
+    public void LoopMaggotSound()
+    {
+        AudioSource audioSource = creeper.GetComponent<AudioSource>();
+        audioSource.clip = maggotSound;
+        audioSource.Play();
+        audioSource.loop = true;
+    }
+
+    public void StopMaggotSound()
+    {
+        AudioSource audioSource = creeper.GetComponent<AudioSource>();
+        audioSource.Stop();
+    }
+
+    public void PlayCreepySFX(int index)
+    {
+        AudioSource audioSource = ambientSource;
+        switch (index)
+        {
+            case 1:
+                audioSource.PlayOneShot(creepySFX1);
+                break;
+            case 2:
+                audioSource.PlayOneShot(creepySFX2);
+                break;
+            case 3:
+                audioSource.PlayOneShot(creepySFX3);
+                break;
+            default:
+                Debug.LogWarning("Invalid creepy SFX index: " + index);
+                break;
         }
     }
 
@@ -76,7 +114,7 @@ public class AudioManager : MonoBehaviour
         audioSource.PlayOneShot(thunderSound);
     }
 
-    public void PlayCreeperSound()
+    public void LoopCreeperSound()
     {
         AudioSource audioSource = creeper.GetComponent<AudioSource>();
         // creeper breathing loop start
