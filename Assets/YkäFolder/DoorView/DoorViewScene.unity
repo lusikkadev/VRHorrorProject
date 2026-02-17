@@ -163,7 +163,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 6056ad5bcd4a7b04fac91c15f612cedc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -205,7 +205,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.161, y: 1.669, z: -4.171}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_LocalScale: {x: 0.33294, y: 0.33294, z: 0.33294}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 532614423}
@@ -224,6 +224,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PeepholeController
   userCam: {fileID: 5142319962874372341}
+  eyeOffsetWorldMax: 0.1
+  useCamTilt: 1
+  useSpherizeOffset: 0
+  useSpherizeCenter: 0
+  camTiltMaxDegrees: 2
+  spherizeOffsetMax: 0.1
+  spherizeCenterMax: 0.1
+  debugOffsetInputX: 0
+  debugOffsetInputY: 0
 --- !u!1 &200985885
 GameObject:
   m_ObjectHideFlags: 0
@@ -683,7 +692,6 @@ GameObject:
   m_Component:
   - component: {fileID: 532614423}
   - component: {fileID: 532614422}
-  - component: {fileID: 532614421}
   - component: {fileID: 532614420}
   m_Layer: 0
   m_Name: PeepholeCam
@@ -736,14 +744,6 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
---- !u!81 &532614421
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 532614419}
-  m_Enabled: 1
 --- !u!20 &532614422
 Camera:
   m_ObjectHideFlags: 0
@@ -2133,7 +2133,7 @@ Transform:
   m_GameObject: {fileID: 2595164518128526826}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.161, y: 1.669, z: -4.795}
+  m_LocalPosition: {x: -0.161, y: 1.669, z: -4.65}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
