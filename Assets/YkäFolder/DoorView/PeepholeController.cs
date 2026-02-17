@@ -1,8 +1,10 @@
 using UnityEngine;
+using UnityEngine.XR;
 
 public class PeepholeController : MonoBehaviour {
     // TODO: in VR have to check for closer eye and use that position!
     [SerializeField] Transform userCam;
+    [SerializeField] bool usingVR = false;
     [SerializeField] float eyeOffsetWorldMax = 0.1f;
     [SerializeField] bool useCamTilt = true;
     [SerializeField] bool useSpherizeOffset = false;
@@ -10,7 +12,7 @@ public class PeepholeController : MonoBehaviour {
     [SerializeField] float camTiltMaxDegrees = 10f;
     [SerializeField] float spherizeOffsetMax = 0.3f;
     [SerializeField] float spherizeCenterMax = 0.3f;
-
+    [SerializeField] bool useDebugOffsetInput = false;
     [SerializeField][Range(-0.2f, 0.2f)] float debugOffsetInputX = 0f;
     [SerializeField][Range(-0.2f, 0.2f)] float debugOffsetInputY = 0f;
     Transform cam;
@@ -24,9 +26,26 @@ public class PeepholeController : MonoBehaviour {
     }
 
     void Update() {
-        var eyePos = userCam.position; // TODO: closer eye position (VR)
-        var localEyePos = (Vector2)transform.InverseTransformPoint(eyePos);
-        localEyePos = new Vector2(debugOffsetInputX, debugOffsetInputY); // DEBUG
+        Vector2 localEyePos = Vector2.zero;
+
+        if (usingVR) {
+            // select eye closer to peephole axis
+            Vector3 leftEyeLocal = InputTracking.GetLocalPosition(XRNode.LeftEye);
+            Vector3 rightEyeLocal = InputTracking.GetLocalPosition(XRNode.RightEye);
+            Matrix4x4 m = userCam.GetComponent<Camera>().cameraToWorldMatrix;
+            Vector3 leftEyeWorld = m.MultiplyPoint(leftEyeLocal);
+            Vector3 rightEyeWorld = m.MultiplyPoint(rightEyeLocal);
+            var localEyePosLeft = (Vector2)transform.InverseTransformPoint(leftEyeWorld);
+            var localEyePosRight = (Vector2)transform.InverseTransformPoint(rightEyeWorld);
+            localEyePos = localEyePosLeft.magnitude < localEyePosRight.magnitude ?
+                          localEyePosLeft : localEyePosRight;
+        } else { // normal non-VR camera
+            var eyePos = userCam.position;
+            localEyePos = (Vector2)transform.InverseTransformPoint(eyePos);
+        }
+
+        if (useDebugOffsetInput)
+            localEyePos = new Vector2(debugOffsetInputX, debugOffsetInputY);
         float x = Mathf.InverseLerp(-eyeOffsetWorldMax, eyeOffsetWorldMax, localEyePos.x);
         x = x * 2 - 1;
         float y = Mathf.InverseLerp(-eyeOffsetWorldMax, eyeOffsetWorldMax, localEyePos.y);
@@ -38,7 +57,7 @@ public class PeepholeController : MonoBehaviour {
         // remap to slight hole camera pan/tilt and/or shader effects
         if (useCamTilt) {
             var camTilts = -normalizedEyeOffset * camTiltMaxDegrees;
-            cam.localRotation = Quaternion.Euler(camTilts.y,
+            cam.localRotation = Quaternion.Euler(-camTilts.y,
                                                  camTilts.x,
                                                  0) * camInitialRot;
         }
