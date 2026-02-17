@@ -28735,6 +28735,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 310461335}
+    - target: {fileID: 4222483637251951366, guid: 42d8dda820328a9488e2476cd5578fcf, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 828c8210f1b591c469e61e3bf8195ebc, type: 2}
     - target: {fileID: 5493932790626274538, guid: 42d8dda820328a9488e2476cd5578fcf, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -28749,7 +28753,7 @@ PrefabInstance:
       objectReference: {fileID: 2077731523}
     - target: {fileID: 5982990152934752883, guid: 42d8dda820328a9488e2476cd5578fcf, type: 3}
       propertyPath: m_VersionIndex
-      value: 2338
+      value: 2347
       objectReference: {fileID: 0}
     - target: {fileID: 6158788633801636259, guid: 42d8dda820328a9488e2476cd5578fcf, type: 3}
       propertyPath: m_Mesh
@@ -28765,7 +28769,7 @@ PrefabInstance:
       objectReference: {fileID: 534577713}
     - target: {fileID: 7480332721415368269, guid: 42d8dda820328a9488e2476cd5578fcf, type: 3}
       propertyPath: m_VersionIndex
-      value: 2338
+      value: 2347
       objectReference: {fileID: 0}
     - target: {fileID: 7727255770841676295, guid: 42d8dda820328a9488e2476cd5578fcf, type: 3}
       propertyPath: m_LocalPosition.x
@@ -28807,13 +28811,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7824446462815958455, guid: 42d8dda820328a9488e2476cd5578fcf, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 41fa7dbed9ee9214fbf1ce50e0af1d68, type: 2}
     - target: {fileID: 7828937943023187393, guid: 42d8dda820328a9488e2476cd5578fcf, type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 201501561}
     - target: {fileID: 7828937943023187393, guid: 42d8dda820328a9488e2476cd5578fcf, type: 3}
       propertyPath: m_VersionIndex
-      value: 2338
+      value: 2347
       objectReference: {fileID: 0}
     - target: {fileID: 7840509674872242177, guid: 42d8dda820328a9488e2476cd5578fcf, type: 3}
       propertyPath: m_Mesh
@@ -28825,7 +28833,7 @@ PrefabInstance:
       objectReference: {fileID: 310461335}
     - target: {fileID: 7870020536037200363, guid: 42d8dda820328a9488e2476cd5578fcf, type: 3}
       propertyPath: m_VersionIndex
-      value: 2338
+      value: 2347
       objectReference: {fileID: 0}
     - target: {fileID: 9186062987108253753, guid: 42d8dda820328a9488e2476cd5578fcf, type: 3}
       propertyPath: m_Name
