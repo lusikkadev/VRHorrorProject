@@ -10,6 +10,7 @@ public class LightningEffect : MonoBehaviour
     [SerializeField] float eventIntensity = 2.0f;
     [SerializeField] bool useNoise = true;
     [SerializeField] float noiseScale = 5.0f;
+    [SerializeField] GameObject neighborLight;
 
     [SerializeField] Material skybox;
     float secondsSinceEvent = Mathf.Infinity;
@@ -18,10 +19,12 @@ public class LightningEffect : MonoBehaviour
         animator = GetComponent<Animator>();
         skybox = RenderSettings.skybox;
     }
-    public void TriggerNoise() {
+    public void TriggerNoise()
+    {
         secondsSinceEvent = 0;
     }
-    public void playLightningEffect() {
+    public void playLightningEffect()
+    {
         animator.Play("Lightning");
         TriggerNoise();
     }
@@ -38,24 +41,26 @@ public class LightningEffect : MonoBehaviour
         TurnOffLights();
     }
 
-    public void TurnOffLights() {
+    public void TurnOffLights()
+    {
         LightsParent.SetActive(false);
     }
-    public void TurnOnLights() {
+    public void TurnOnLights()
+    {
         LightsParent.SetActive(true);
     }
     // Update is called once per frame
     void Update()
     {
-        if (Keyboard.current.enterKey.wasPressedThisFrame) 
+        if (Keyboard.current.enterKey.wasPressedThisFrame)
             playLightningEffect();
-        
-        if (Keyboard.current.upArrowKey.wasPressedThisFrame) 
+
+        if (Keyboard.current.upArrowKey.wasPressedThisFrame)
             TurnOnLights();
-        
-        if (Keyboard.current.downArrowKey.wasPressedThisFrame) 
+
+        if (Keyboard.current.downArrowKey.wasPressedThisFrame)
             TurnOffLights();
-        
+
         secondsSinceEvent += Time.deltaTime;
         float t = Mathf.Clamp01(1 - secondsSinceEvent / decaySeconds);
         if (useNoise)
@@ -63,5 +68,19 @@ public class LightningEffect : MonoBehaviour
         var intensity = Mathf.Lerp(normalIntensity, eventIntensity, t);
         skybox.SetFloat("_Exposure", intensity);
 
+    }
+
+    public IEnumerator NeighborLightOff()
+    {
+        yield return new WaitForSeconds(3f);
+        neighborLight.SetActive(false);
+        yield return new WaitForSeconds(1f);
+        neighborLight.SetActive(true);
+        yield return new WaitForSeconds(0.3f);
+        neighborLight.SetActive(false);
+        yield return new WaitForSeconds(0.3f);
+        neighborLight.SetActive(true);
+        yield return new WaitForSeconds(0.3f);
+        neighborLight.SetActive(false);
     }
 }

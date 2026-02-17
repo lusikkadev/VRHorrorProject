@@ -23,6 +23,7 @@ public class EventManager : MonoBehaviour
     [SerializeField] Transform creeperAnchorShower;
     [SerializeField] Transform creeperAnchorBedroom;
     [SerializeField] Transform creeperAnchorEnd;
+    [SerializeField] Transform creeperAnchorPeephole;
 
     [Header("Wall Hole Trigger Colliders")]
     [SerializeField] GameObject wallHoleTriggerCollider1;
@@ -128,7 +129,7 @@ public class EventManager : MonoBehaviour
             yield return null;
         }
         wallHoleTriggerCollider1.SetActive(false);
-
+        StartCoroutine(lightningEffect.NeighborLightOff());
         debugText.text = "Freeroam sequence done";
         // Move creeper to the first anchor point on the road, enable road collider trigger
         creeperPrefab.SetActive(true);
@@ -195,7 +196,8 @@ public class EventManager : MonoBehaviour
 
         doorTriggerCollider.SetActive(true);
         AudioManager.instance.PlayDoorBellSound();
-        // Instantiate creeper image at the door
+        creeperPrefab.transform.position = creeperAnchorPeephole.position;
+        creeperPrefab.transform.rotation = creeperAnchorPeephole.rotation;
 
         while (!progressGates.Contains("PlayerLookedThroughDoorDone"))
         {
@@ -203,7 +205,6 @@ public class EventManager : MonoBehaviour
         }
 
         // Start the door eye sequence.
-        yield return new WaitForSeconds(5f);
 
         
         debugText.text = "Player looked through door";
@@ -251,8 +252,8 @@ public class EventManager : MonoBehaviour
         lightningEffect.PlayLightningAfterBlackOut();
         AudioManager.instance.PlayLightningSound();
         yield return new WaitForSeconds(4f);
-        creeperActions.RunTowardsPlayer();
-        yield return new WaitForSeconds(3f);
+        creeperActions.StartCoroutine(creeperActions.RunningCoroutine());
+        yield return new WaitForSeconds(8f);
         cameraFade.EndGameToBlack();
 
         while (!progressGates.Contains("PlayerCaughtDone"))

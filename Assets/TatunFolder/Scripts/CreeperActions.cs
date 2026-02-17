@@ -43,13 +43,6 @@ public class CreeperActions : MonoBehaviour
         creeperAnim.SetTrigger("Idle");
     }
 
-    public void RunTowardsPlayer()
-    {
-        creeperAnim.SetTrigger("Run");
-        creeperSpeed = 5f;
-        isRunning = true;
-    }
-
     public void SetToIdle()
     {
         creeperAnim.SetTrigger("Idle");
