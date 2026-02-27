@@ -9,6 +9,7 @@ public class CreeperActions : MonoBehaviour
     [SerializeField] float creeperSpeed = 10f;
     [SerializeField] bool isRunning = false;
 
+    Coroutine currentRunCoroutine;
 
     private void Awake()
     {
@@ -31,6 +32,12 @@ public class CreeperActions : MonoBehaviour
 
     public IEnumerator RunningCoroutine()
     {
+        isRunning = false;
+
+        creeperAnim.ResetTrigger("Idle");
+        creeperAnim.ResetTrigger("Run");
+        creeperAnim.ResetTrigger("Stare");
+
         creeperAnim.SetTrigger("Stare");
         yield return new WaitForSeconds(5f);
         creeperAnim.SetTrigger("Run");
@@ -39,12 +46,41 @@ public class CreeperActions : MonoBehaviour
 
     public void StopRunning()
     {
+        if (currentRunCoroutine != null)
+        {
+            StopCoroutine(currentRunCoroutine);
+            currentRunCoroutine = null;
+        }
+
         isRunning = false;
+
+        creeperAnim.ResetTrigger("Run");
+        creeperAnim.ResetTrigger("Stare");
+
         creeperAnim.SetTrigger("Idle");
     }
 
     public void SetToIdle()
     {
+        if (currentRunCoroutine != null)
+        {
+            StopCoroutine(currentRunCoroutine);
+            currentRunCoroutine = null;
+        }
+        creeperAnim.ResetTrigger("Run");
+        creeperAnim.ResetTrigger("Stare");
+        creeperAnim.ResetTrigger("Twitch");
+
         creeperAnim.SetTrigger("Idle");
     }
+
+    public void StartRunning()
+    {
+        if (currentRunCoroutine != null)
+        {
+            StopCoroutine(currentRunCoroutine);
+        }
+        currentRunCoroutine = StartCoroutine(RunningCoroutine());
+    }
+
 }

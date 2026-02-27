@@ -35,6 +35,7 @@ public class EventManager : MonoBehaviour
     [SerializeField] GameObject doorTriggerCollider;
     [SerializeField] GameObject bathroomTriggerCollider;
     [SerializeField] GameObject livingRoomTriggerCollider;
+    [SerializeField] GameObject bedroomTriggerCollider;
     [SerializeField] GameObject endingTriggerCollider;
 
     [Header("Booleans")]
@@ -76,16 +77,15 @@ public class EventManager : MonoBehaviour
 
         AudioManager.instance.PlayPhoneRing();
         // Wake up audio etc.
-        debugText.text = "Start sequence done";
+        //debugText.text = "Start sequence done";
 
         while (!progressGates.Contains("PickedUpPhoneDone"))
         {
-            debugText.text = "Waiting for phone pickup";
             yield return null;
         }
 
-        
-        debugText.text = "Picked Up Phone";
+
+        //debugText.text = "Picked Up Phone";
         AudioManager.instance.StopPhoneRing();
         yield return new WaitForSeconds(5f);
 
@@ -107,13 +107,13 @@ public class EventManager : MonoBehaviour
         AudioManager.instance.PlayLightningSound();
         // Lights out
         progressGates.Add("WindowSequenceDone");
-        
+
         while (!progressGates.Contains("WindowSequenceDone"))
         {
             yield return null;
         }
 
-        debugText.text = "Window sequence done";
+        //debugText.text = "Window sequence done";
         wallHoleTriggerCollider1.SetActive(true);
         yield return new WaitForSeconds(8f);
 
@@ -142,10 +142,10 @@ public class EventManager : MonoBehaviour
         }
 
         roadTriggerCollider.SetActive(false);
-        debugText.text = "Creeper seen on road";
+        //debugText.text = "Creeper seen on road";
         yield return new WaitForSeconds(2f);
-        debugText.text = "Starting creeper run";
-        creeperActions.StartCoroutine(creeperActions.RunningCoroutine());
+        //debugText.text = "Starting creeper run";
+        creeperActions.StartRunning();
         yield return new WaitForSeconds(8f);
 
         creeperActions.StopRunning();
@@ -161,7 +161,7 @@ public class EventManager : MonoBehaviour
         }
         creeperPrefab.transform.position = creeperAnchorLivingRoom.position;
         livingRoomTriggerCollider.SetActive(true);
-        debugText.text = "Road sequence done, starting free roam";
+        //debugText.text = "Road sequence done, starting free roam";
         scareDisplay.StartScareDisplay();
 
         while (!progressGates.Contains("CreeperSeenInLivingRoomDone"))
@@ -169,7 +169,7 @@ public class EventManager : MonoBehaviour
             yield return null;
         }
 
-        debugText.text = "Creeper seen in living room";
+        //debugText.text = "Creeper seen in living room";
 
         livingRoomTriggerCollider.SetActive(false);
         yield return new WaitForSeconds(3f);
@@ -178,41 +178,40 @@ public class EventManager : MonoBehaviour
         creeperActions.StartTwitching();
         yield return new WaitForSeconds(10f);
 
-        debugText.text = "Starting creeper sounds";
+        //debugText.text = "Starting creeper sounds";
         AudioManager.instance.LoopCreeperSound();
         yield return new WaitForSeconds(10f);
 
-        
-        debugText.text = "Starting maggot sounds";
+
+        //debugText.text = "Starting maggot sounds";
         AudioManager.instance.StopCreeperSound();
         AudioManager.instance.LoopMaggotSound();
         yield return new WaitForSeconds(8f);
 
-        debugText.text = "Preparing for doorbell";
+        //debugText.text = "Preparing for doorbell";
         AudioManager.instance.StopMaggotSound();
+        creeperPrefab.transform.position = creeperAnchorPeephole.position;
+        creeperPrefab.transform.rotation = creeperAnchorPeephole.rotation;
         lightningEffect.PlayLightningAfterBlackOut();
         AudioManager.instance.PlayLightningSound();
         yield return new WaitForSeconds(10f);
 
         doorTriggerCollider.SetActive(true);
         AudioManager.instance.PlayDoorBellSound();
-        creeperPrefab.transform.position = creeperAnchorPeephole.position;
-        creeperPrefab.transform.rotation = creeperAnchorPeephole.rotation;
 
         while (!progressGates.Contains("PlayerLookedThroughDoorDone"))
         {
             yield return null;
         }
 
-        // Start the door eye sequence.
-
-        
-        debugText.text = "Player looked through door";
-        yield return new WaitForSeconds(5f);
+        doorTriggerCollider.SetActive(false);
+        //debugText.text = "Player looked through door";
+        yield return new WaitForSeconds(8f);
 
         bathroomTriggerCollider.SetActive(true);
         creeperPrefab.transform.position = creeperAnchorShower.position;
         creeperPrefab.transform.rotation = creeperAnchorShower.rotation;
+        creeperActions.SetToIdle();
         AudioManager.instance.LoopShowerSound();
         creeperActions.StartTwitching();
         while (!progressGates.Contains("PlayerEnteredBathroomDone"))
@@ -223,37 +222,47 @@ public class EventManager : MonoBehaviour
         AudioManager.instance.StopShowerSound();
         yield return new WaitForSeconds(2f);
         AudioManager.instance.LoopCreeperSound();
-        yield return new WaitForSeconds(8f);
+        yield return new WaitForSeconds(5f);
         AudioManager.instance.StopCreeperSound();
         creeperPrefab.SetActive(false);
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1f);
         progressGates.Add("BathroomSequenceDone");
 
         while (!progressGates.Contains("BathroomSequenceDone"))
         {
             yield return null;
         }
+
         creeperPrefab.SetActive(true);
+        creeperPrefab.transform.position = creeperAnchorBedroom.position;
+        creeperPrefab.transform.rotation = creeperAnchorBedroom.rotation;
+        lightningEffect.TurnOnLights();
+        bedroomTriggerCollider.SetActive(true);
+
+        while (!progressGates.Contains("CreeperSeenInBedroomDone"))
+        {
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(4f);
         creeperPrefab.transform.position = creeperAnchorEnd.position;
         creeperPrefab.transform.rotation = creeperAnchorEnd.rotation;
-        creeperActions.SetToIdle();
-        lightningEffect.TurnOnLights();
         endingTriggerCollider.SetActive(true);
+
         while (!progressGates.Contains("CreeperEndingSeenDone"))
         {
             yield return null;
         }
 
-        endingTriggerCollider.SetActive(false);
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
         lightningEffect.TurnOffLights();
         AudioManager.instance.LoopCreeperSound();
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(4f);
         lightningEffect.PlayLightningAfterBlackOut();
         AudioManager.instance.PlayLightningSound();
-        yield return new WaitForSeconds(4f);
-        creeperActions.StartCoroutine(creeperActions.RunningCoroutine());
-        yield return new WaitForSeconds(8f);
+        yield return new WaitForSeconds(2f);
+        creeperActions.StartRunning();
+        yield return new WaitForSeconds(5f);
         cameraFade.EndGameToBlack();
 
         while (!progressGates.Contains("PlayerCaughtDone"))
